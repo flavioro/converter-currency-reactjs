@@ -17,7 +17,7 @@ export default class Converter extends Component {
 
   async converter() {
     let fromTo = `${this.props.currencyA}_${this.props.currencyB}`
-    const key = '5b812531a7ab457add23'
+    const key = '5b812531a7ab457add2'
     let url = `https://free.currconv.com/api/v7/convert?q=${fromTo}&compact=ultra&apiKey=${key}`
     // https://free.currconv.com/api/v7/convert?q=USD_PHP&compact=ultra&apiKey=5b812531a7ab457add23
     // https://free.currconv.com/api/v7/convert?q=USD_BRL&compact=ultra&apiKey=5b812531a7ab457add23
