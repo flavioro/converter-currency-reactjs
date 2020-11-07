@@ -1,10 +1,21 @@
-// import './App.css';
+import './App.css';
 import Converter from './components/Converter';
 
 function App() {
   return (
     <div className="App">
-      <Converter currencyA='USD' currencyB='BRL'></Converter>
+      <div className='line'>
+        <Converter currencyA='USD' currencyB='BRL'></Converter>
+        <Converter currencyA='BRL' currencyB='USD'></Converter>
+      </div>
+      <div className='line'>
+        <Converter currencyA='CAD' currencyB='BRL'></Converter>
+        <Converter currencyA='BRL' currencyB='CAD'></Converter>
+      </div>
+      <div className='line'>
+        <Converter currencyA='EUR' currencyB='BRL'></Converter>
+        <Converter currencyA='BRL' currencyB='EUR'></Converter>
+      </div>
     </div>
   );
 }

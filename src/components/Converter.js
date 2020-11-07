@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import { Container } from './styles';
+import './Converter.css';
 
 export default class Converter extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ export default class Converter extends Component {
     this.state = {
       currencyValueA: '',
       currencyValueB: 0,
+      currencyQuotation: 0
     }
 
     this.converter = this.converter.bind(this)
@@ -21,8 +22,6 @@ export default class Converter extends Component {
     // https://free.currconv.com/api/v7/convert?q=USD_PHP&compact=ultra&apiKey=5b812531a7ab457add23
     // https://free.currconv.com/api/v7/convert?q=USD_BRL&compact=ultra&apiKey=5b812531a7ab457add23
 
-    console.log(url)
-
     // fetch(url)
     //   .then(res => {
     //     return res.json()
@@ -33,11 +32,18 @@ export default class Converter extends Component {
     //     this.setState({currencyValueB})
     //   })
 
-    const urlJson = (await fetch(url)).json;
-    console.log(urlJson)
-
-    let quatiton = urlJson.fromTo
-    let currencyValueB = (parseFloat(this.state.currencyValueA) * quatiton).toFixed(2)
+    const response = await fetch(url);
+    const currency = await response.json();
+    // console.log(currency.USD_BRL)
+    console.log(currency[fromTo])
+    const currencyQuotation = (currency[fromTo]).toFixed(2)
+    this.setState({currencyQuotation})
+    
+    let quatiton = currency[fromTo]
+    const quantity = parseFloat(this.state.currencyValueA)
+    // console.log(quantity)
+    let currencyValueB = (quantity * quatiton).toFixed(2)
+    // console.log(currencyValueB)
     this.setState({currencyValueB})
   }
 
@@ -45,9 +51,10 @@ export default class Converter extends Component {
     return (
       <div className='Converter'>
         <h2>{this.props.currencyA} to {this.props.currencyB}</h2>
-        <input type='text' onChange={(event) => {this.setState({currencyA:event.target.value})}}></input>
+        <input type='text' onChange={(event) => {this.setState({currencyValueA:event.target.value})}}></input>
         <button type='button' value='Converter' onClick={() => this.converter()}>Converter</button>
         <h2>{this.state.currencyValueB}</h2>
+        <h3>quotation now {this.state.currencyQuotation}</h3>
       </div>
     )
   }
